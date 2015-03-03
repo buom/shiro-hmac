@@ -1,0 +1,67 @@
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.0.xsd">
+
+    <changeSet id="1" author="b-u-o-m">
+        <createTable tableName="users">
+            <column name="username" type="varchar(21)">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="password" type="varchar(8)" defaultValue="">
+                <constraints nullable="false"/>
+            </column>
+            <column name="password_salt" type="varchar(64)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <createTable tableName="roles">
+            <column name="role_name" type="varchar(16)">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="description" type="varchar(1500)"/>
+        </createTable>
+        <createTable tableName="user_roles">
+            <column name="username" type="varchar(21)">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="role_name" type="varchar(16)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <createTable tableName="roles_permissions">
+            <column name="role_name" type="varchar(16)">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="permission" type="varchar(128)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <addForeignKeyConstraint baseTableName="user_roles" baseColumnNames="username" constraintName="fk_user_roles_users"
+                                 referencedTableName="users"
+                                 referencedColumnNames="username"/>
+        <addForeignKeyConstraint baseTableName="user_roles" baseColumnNames="role_name" constraintName="fk_user_roles_roles"
+                                 referencedTableName="roles"
+                                 referencedColumnNames="role_name"/>
+    </changeSet>
+
+    <changeSet id="2" author="b-u-o-m" context="test">
+        <insert tableName="users">
+            <column name="username"><![CDATA[J4KUF0NALQ20QUQHBNXF]]></column>
+            <column name="password_salt"><![CDATA[J4XpaMB/1CtTXH4KSbk2QpcIAiFtTSBcErEwg5gQ]]></column>
+        </insert>
+        <insert tableName="roles">
+            <column name="role_name"><![CDATA[admin]]></column>
+        </insert>
+        <insert tableName="user_roles">
+            <column name="username"><![CDATA[J4KUF0NALQ20QUQHBNXF]]></column>
+            <column name="role_name"><![CDATA[admin]]></column>
+        </insert>
+        <insert tableName="roles_permissions">
+            <column name="role_name"><![CDATA[admin]]></column>
+            <column name="permission"><![CDATA[*]]></column>
+        </insert>
+    </changeSet>
+</databaseChangeLog>
