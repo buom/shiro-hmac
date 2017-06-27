@@ -21,7 +21,7 @@
         <Arg>shiro</Arg>
         <Arg>
             <New class="org.apache.derby.jdbc.EmbeddedDataSource">
-                <Set name="DatabaseName">shiro</Set>
+                <Set name="DatabaseName">derby-shiro</Set>
                 <Set name="createDatabase">create</Set>
                 <Set name="user">shiro</Set>
                 <Set name="password">shiro</Set>
